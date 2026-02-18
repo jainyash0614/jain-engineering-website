@@ -182,3 +182,59 @@
 - `npm run build`: pass
 - Route smoke checks: pass on key routes listed above.
 
+## Batch 8
+
+### Removed dependencies
+- `@emotion/react`
+- `@emotion/styled`
+- `@mui/icons-material`
+- `@mui/material`
+- `@popperjs/core`
+- `@radix-ui/react-accordion`
+- `@radix-ui/react-alert-dialog`
+- `@radix-ui/react-aspect-ratio`
+- `@radix-ui/react-avatar`
+- `@radix-ui/react-checkbox`
+- `@radix-ui/react-collapsible`
+- `@radix-ui/react-context-menu`
+- `@radix-ui/react-dropdown-menu`
+- `@radix-ui/react-hover-card`
+- `@radix-ui/react-menubar`
+- `@radix-ui/react-navigation-menu`
+- `@radix-ui/react-popover`
+- `@radix-ui/react-progress`
+- `@radix-ui/react-radio-group`
+- `@radix-ui/react-scroll-area`
+- `@radix-ui/react-separator`
+- `@radix-ui/react-slider`
+- `@radix-ui/react-switch`
+- `@radix-ui/react-toggle`
+- `@radix-ui/react-toggle-group`
+- `@radix-ui/react-tooltip`
+- `cmdk`
+- `date-fns`
+- `embla-carousel-react`
+- `input-otp`
+- `motion`
+- `next-themes`
+- `react-day-picker`
+- `react-dnd`
+- `react-dnd-html5-backend`
+- `react-popper`
+- `react-resizable-panels`
+- `react-responsive-masonry`
+- `react-slick`
+- `recharts`
+- `sonner`
+- `vaul`
+
+### False-positive handled
+- `tw-animate-css` was initially flagged by depcheck but is required by `src/styles/index.css`; restored.
+
+### Reason
+- No remaining imports after component cleanup and route-surface verification.
+
+### Verification
+- `npm run build`: pass
+- Route smoke checks: pass on key routes listed above.
+
