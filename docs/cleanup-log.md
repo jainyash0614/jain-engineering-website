@@ -116,3 +116,25 @@
 - `npm run build`: pass
 - Route smoke checks: pass on key routes listed above.
 
+## Batch 5
+
+### Removed
+- `src/app/components/ui/collapsible.tsx`
+- `src/app/components/ui/command.tsx`
+- `src/app/components/ui/context-menu.tsx`
+- `src/app/components/ui/dropdown-menu.tsx`
+- `src/app/components/ui/drawer.tsx`
+- `src/app/components/ui/hover-card.tsx`
+- `src/app/components/ui/input-otp.tsx`
+- `src/app/components/ui/menubar.tsx`
+- `src/app/components/ui/navigation-menu.tsx`
+- `src/app/components/ui/pagination.tsx`
+
+### Reason
+- Zero imports/references from reachable route surface.
+- No dynamic import or runtime registry references detected.
+
+### Verification
+- `npm run build`: pass
+- Route smoke checks: pass on key routes listed above.
+
