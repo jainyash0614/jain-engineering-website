@@ -1,3 +1,4 @@
+import type { FormEvent } from 'react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -7,7 +8,7 @@ import { Card, CardContent } from '../components/ui/card';
 import { CheckCircle, TrendingUp, Users, Shield, Zap } from 'lucide-react';
 
 export function BecomePartner() {
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     alert('Thank you for your interest! Our partnership team will review your application and contact you within 48 hours.');
   };
