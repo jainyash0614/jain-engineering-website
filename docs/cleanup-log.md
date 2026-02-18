@@ -138,3 +138,25 @@
 - `npm run build`: pass
 - Route smoke checks: pass on key routes listed above.
 
+## Batch 6
+
+### Removed
+- `src/app/components/ui/popover.tsx`
+- `src/app/components/ui/progress.tsx`
+- `src/app/components/ui/radio-group.tsx`
+- `src/app/components/ui/resizable.tsx`
+- `src/app/components/ui/scroll-area.tsx`
+- `src/app/components/ui/separator.tsx`
+- `src/app/components/ui/sheet.tsx`
+- `src/app/components/ui/sidebar.tsx`
+- `src/app/components/ui/skeleton.tsx`
+- `src/app/components/ui/slider.tsx`
+
+### Reason
+- Zero imports/references from reachable route surface.
+- No dynamic import or runtime registry references detected.
+
+### Verification
+- `npm run build`: pass
+- Route smoke checks: pass on key routes listed above.
+
