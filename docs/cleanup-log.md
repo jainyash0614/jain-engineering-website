@@ -94,3 +94,25 @@
 - `npm run build`: pass (regenerates local `dist/` for runtime use)
 - Route smoke checks: pass on key routes listed above.
 
+## Batch 4
+
+### Removed
+- `src/app/components/ui/accordion.tsx`
+- `src/app/components/ui/alert-dialog.tsx`
+- `src/app/components/ui/alert.tsx`
+- `src/app/components/ui/aspect-ratio.tsx`
+- `src/app/components/ui/avatar.tsx`
+- `src/app/components/ui/breadcrumb.tsx`
+- `src/app/components/ui/calendar.tsx`
+- `src/app/components/ui/carousel.tsx`
+- `src/app/components/ui/chart.tsx`
+- `src/app/components/ui/checkbox.tsx`
+
+### Reason
+- Zero imports/references from reachable route surface.
+- No dynamic import or registry evidence found.
+
+### Verification
+- `npm run build`: pass
+- Route smoke checks: pass on key routes listed above.
+
