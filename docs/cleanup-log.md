@@ -160,3 +160,25 @@
 - `npm run build`: pass
 - Route smoke checks: pass on key routes listed above.
 
+## Batch 7
+
+### Removed
+- `src/app/components/ui/sonner.tsx`
+- `src/app/components/ui/switch.tsx`
+- `src/app/components/ui/table.tsx`
+- `src/app/components/ui/toggle.tsx`
+- `src/app/components/ui/toggle-group.tsx`
+- `src/app/components/ui/tooltip.tsx`
+
+### Kept (uncertain)
+- `src/app/components/ui/form.tsx`
+- `src/app/components/ui/use-mobile.ts`
+
+### Reason
+- Removed files have zero imports/references from reachable route surface.
+- Kept uncertain files for safety because they can be reused quickly in future form/layout work.
+
+### Verification
+- `npm run build`: pass
+- Route smoke checks: pass on key routes listed above.
+
