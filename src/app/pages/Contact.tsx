@@ -86,16 +86,16 @@ export function Contact() {
     {
       icon: Phone,
       title: 'Call or WhatsApp',
-      detail: '+91 98765 43210',
+      detail: '+91 9990007858',
       action: 'Call Now',
-      link: 'tel:+919876543210'
+      link: 'tel:+919990007858'
     },
     {
       icon: Mail,
       title: 'Email Us',
-      detail: 'info@jainengineeringworks.com',
+      detail: 'jain_engineeringworks@yahoo.co.in',
       action: 'Send Email',
-      link: 'mailto:info@jainengineeringworks.com'
+      link: 'mailto:jain_engineeringworks@yahoo.co.in'
     },
     {
       icon: Calendar,

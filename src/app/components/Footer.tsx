@@ -21,10 +21,10 @@ export function Footer() {
               Incepted in 1990. Manufacturing & supplying metal boxes, metal plates, sheet metal components, shock loop assembly, port silencer & more. Faridabad.
             </p>
             <div className="flex gap-4">
-              <a href="mailto:info@jainengineeringworks.com" className="text-muted-foreground hover:text-primary" aria-label="Email">
+              <a href="mailto:jain_engineeringworks@yahoo.co.in" className="text-muted-foreground hover:text-primary" aria-label="Email">
                 <Mail className="h-5 w-5" />
               </a>
-              <a href="https://wa.me/919876543210" className="text-muted-foreground hover:text-primary" aria-label="WhatsApp">
+              <a href="https://wa.me/919990007858" className="text-muted-foreground hover:text-primary" aria-label="WhatsApp">
                 <Phone className="h-5 w-5" />
               </a>
             </div>
@@ -70,11 +70,11 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-5 w-5 flex-shrink-0" />
-                <a href="mailto:info@jainengineeringworks.com" className="hover:text-foreground">info@jainengineeringworks.com</a>
+                <a href="mailto:jain_engineeringworks@yahoo.co.in" className="hover:text-foreground">jain_engineeringworks@yahoo.co.in</a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-5 w-5 flex-shrink-0" />
-                <a href="tel:+919876543210" className="hover:text-foreground">+91 98765 43210</a>
+                <a href="tel:+919990007858" className="hover:text-foreground">+91 9990007858</a>
               </li>
             </ul>
           </div>
