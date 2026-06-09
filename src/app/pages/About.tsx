@@ -50,13 +50,13 @@ export function About() {
           <h2 className="text-2xl font-semibold mb-6">Our Story</h2>
           <div className="prose prose-invert max-w-none space-y-4 text-foreground">
             <p className="text-muted-foreground leading-relaxed">
-              Incepted in the year 1990, Jain Engineering Works is engaged in manufacturing and supplying shock loop assembly, port silencer, furnace parts, metal plates, metal boxes, all sheet metal components and air conditioner spare parts. These are attributed for high efficiency, rugged construction, compact designs, corrosion resistance, durable performance and long service life.
+              Founded in 1990, Jain Engineering Works is a Faridabad-based manufacturer of precision sheet-metal components for industrial and electrical applications. We specialize in OEM-grade electrical metal boxes and floor distribution systems, along with a wide range of custom sheet-metal fabrication.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              The business is handled smoothly under the able guidance of CEO Mr. Sudhir Jain who has vast industrial experience of over 15 years in the domain. His efficient handling and the support of dynamic and experienced workforce has resulted into carving out a niche for us in the industry.
+              Our operations are led by Mr. Sudhir Jain, whose hands-on manufacturing experience and process-driven approach ensure consistent quality, reliable lead times, and repeatable production.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              We have a wide & well-knit distribution network to assist us in safe delivery of our precision-engineered metal boxes, metal plates and black plate. Through our dealers across the Indian market, we are able to deliver the ordered product within the stipulated time frame.
+              With a skilled workforce and a well-organized delivery network across India, we support customers with safe packaging and timely dispatch-whether for prototypes, small batches, or volume supply.
             </p>
           </div>
         </section>

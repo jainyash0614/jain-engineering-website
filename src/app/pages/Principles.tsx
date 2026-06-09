@@ -17,38 +17,38 @@ export function Principles() {
     {
       icon: Shield,
       title: 'Multi-Stage Quality Gates',
-      description: 'Every enclosure passes through incoming inspection, in-process checks, and final inspection before dispatch. We don\'t compromise on quality at any stage.',
-      commitment: 'Zero-defect culture with documented checkpoints'
+      description: 'We run checks at three levels: incoming inspection, in-process inspection, and final inspection before dispatch.',
+      commitment: 'Documented checkpoints and consistent output.'
     },
     {
       icon: Target,
-      title: 'Material Standards',
-      description: 'We use only certified materials from approved suppliers. Every batch comes with material test certificates (MTCs) traceable to the mill.',
-      commitment: 'Full material traceability with certificates'
+      title: 'Material Standards & Traceability',
+      description: 'We procure material only from approved suppliers and maintain batch traceability with Material Test Certificates (MTCs).',
+      commitment: 'Full traceability from mill to finished product.'
     },
     {
       icon: Award,
-      title: 'Coating & Finishing Standards',
-      description: 'Our powder coating process follows strict parameters for surface preparation, coating thickness (60-80 microns), and curing. Every batch is tested for adhesion and salt spray resistance.',
-      commitment: 'Proven corrosion resistance for outdoor use'
+      title: 'Finishing Standards',
+      description: 'Our finishing process follows defined parameters for surface prep, coating thickness, and curing. We verify finish quality through batch checks (adhesion and corrosion-resistance where applicable).',
+      commitment: 'Reliable finish quality for long service life.'
     },
     {
       icon: Lock,
-      title: 'Confidentiality',
-      description: 'We understand OEM relationships. Your designs, specifications, and volumes remain strictly confidential. No information is shared with third parties.',
-      commitment: 'NDAs signed, data security maintained'
+      title: 'OEM Confidentiality',
+      description: 'We treat OEM data as confidential-drawings, BOMs, specifications, and volumes remain protected.',
+      commitment: 'NDAs supported by disciplined information handling.'
     },
     {
       icon: FileCheck,
-      title: 'Compliance & Certifications',
-      description: 'Our manufacturing processes are ISO certified. Products are tested to IEC and relevant national standards. We provide test reports with every order.',
-      commitment: 'Regulatory compliance guaranteed'
+      title: 'Compliance & Documentation',
+      description: 'We align production to relevant standards and provide documentation required for partner approvals (inspection records, test reports, and dispatch documentation).',
+      commitment: 'Compliance-ready documentation on time.'
     },
     {
       icon: TrendingUp,
-      title: 'Continuous Improvement',
-      description: 'We actively seek feedback and implement process improvements. Our engineering team reviews every customization for manufacturability and cost optimization.',
-      commitment: 'Value engineering for better outcomes'
+      title: 'Continuous Improvement & Value Engineering',
+      description: 'We review feedback and refine processes continuously. For custom requirements, we propose manufacturable, cost-effective options without compromising quality.',
+      commitment: 'Smarter designs, stable production, better outcomes.'
     }
   ];
 
@@ -60,8 +60,8 @@ export function Principles() {
           <div className="max-w-3xl">
             <h1 className="mb-6">Our Operating Principles</h1>
             <p className="text-xl text-muted-foreground mb-8">
-              These are the non-negotiables that guide how we work with every partner. 
-              They're not just words—they're how we do business every single day.
+              These are the standards we follow on every order-prototype to production.
+              They protect quality, timelines, and your OEM requirements.
             </p>
           </div>
         </div>
