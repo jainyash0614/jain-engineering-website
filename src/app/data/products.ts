@@ -237,8 +237,8 @@ export const PRODUCTS: Product[] = [
     ],
     thicknessOptions: [1.2],
     sizeOptions: [
-      { label: '300×300 mm cutout', height: 0, width: 300, depth: 300, unit: 'mm' },
-      { label: '400×300 mm cutout', height: 0, width: 400, depth: 300, unit: 'mm' },
+      { label: '300×300 mm cutout', height: 95, width: 300, depth: 300, unit: 'mm' },
+      { label: '400×300 mm cutout', height: 95, width: 400, depth: 300, unit: 'mm' },
     ],
     keySpecs: {
       Material: 'Galvanized steel body with stainless steel trim options',

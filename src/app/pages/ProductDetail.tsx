@@ -348,6 +348,11 @@ export function ProductDetail() {
                   depth={selectedSize?.depth ?? 200}
                   unit={selectedSize?.unit ?? 'mm'}
                   modelUrl={product?.model3d}
+                  variant={
+                    product.category === 'floor-distribution-system'
+                      ? 'fds-floor-box'
+                      : 'enclosure-box'
+                  }
                 />
               </div>
 
@@ -357,18 +362,37 @@ export function ProductDetail() {
                   <CardContent className="p-6">
                     <h3 className="font-semibold mb-4">Dimensions</h3>
                     <div className="space-y-3">
-                      <div>
-                        <div className="text-sm text-muted-foreground mb-1">Height</div>
-                        <div className="text-lg font-semibold">{selectedSize?.height ?? '-'} mm</div>
-                      </div>
-                      <div>
-                        <div className="text-sm text-muted-foreground mb-1">Width</div>
-                        <div className="text-lg font-semibold">{selectedSize?.width ?? '-'} mm</div>
-                      </div>
-                      <div>
-                        <div className="text-sm text-muted-foreground mb-1">Depth</div>
-                        <div className="text-lg font-semibold">{selectedSize?.depth ?? '-'} mm</div>
-                      </div>
+                      {product.category === 'floor-distribution-system' ? (
+                        <>
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">Cutout width</div>
+                            <div className="text-lg font-semibold">{selectedSize?.width ?? '-'} mm</div>
+                          </div>
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">Cutout depth</div>
+                            <div className="text-lg font-semibold">{selectedSize?.depth ?? '-'} mm</div>
+                          </div>
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">Body depth (below floor)</div>
+                            <div className="text-lg font-semibold">{selectedSize?.height ?? '-'} mm</div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">Height</div>
+                            <div className="text-lg font-semibold">{selectedSize?.height ?? '-'} mm</div>
+                          </div>
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">Width</div>
+                            <div className="text-lg font-semibold">{selectedSize?.width ?? '-'} mm</div>
+                          </div>
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">Depth</div>
+                            <div className="text-lg font-semibold">{selectedSize?.depth ?? '-'} mm</div>
+                          </div>
+                        </>
+                      )}
                     </div>
 
                     <div className="mt-6 pt-6 border-t border-border">
