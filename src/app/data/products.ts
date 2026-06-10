@@ -1,5 +1,7 @@
 export type ProductCategoryId = 'electrical-metal-boxes' | 'floor-distribution-system';
 
+export type MetalBoxViewerStyle = 'modular-mount' | 'enclosure';
+
 export interface SizeOption {
   label: string;
   height: number;
@@ -31,6 +33,7 @@ export interface Product {
   keySpecs: Record<string, string>;
   downloads: DownloadItem[];
   model3d: string | null;
+  viewerStyle?: MetalBoxViewerStyle;
   applications: string[];
 }
 
@@ -70,6 +73,37 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
 ];
 
 export const PRODUCTS: Product[] = [
+  {
+    id: 'mb16008v-8-module-vertical',
+    name: '8 Module Vertical Metal Box 130×130×60',
+    slug: 'mb16008v-8-module-vertical',
+    category: 'electrical-metal-boxes',
+    shortDescription:
+      '1.6 mm pre-galvanized vertical mounting box for modular wiring devices — 8 module, 60 mm depth.',
+    heroImage: '/products/jeb/hero.jpg',
+    galleryImages: ['/products/jeb/hero.jpg', '/products/jeb/view-2.jpg', '/products/jeb/view-3.jpg'],
+    thicknessOptions: [1.6],
+    sizeOptions: [
+      { label: '130×130×60 mm (internal)', height: 130, width: 130, depth: 60, unit: 'mm' },
+    ],
+    keySpecs: {
+      Material: 'Galvanized steel, 275 GSM',
+      'Sheet thickness': '1.6 mm',
+      'Internal size': '130 × 130 × 60 mm',
+      Finish: 'Pre-galvanized spangle finish',
+      Knockouts: 'Dual knockouts on all faces; earth terminal on back',
+      Mounting: 'Sliding top/bottom lugs for faceplate fixing',
+    },
+    downloads: [],
+    model3d: null,
+    viewerStyle: 'modular-mount',
+    applications: [
+      'Modular switch and socket assemblies',
+      'Commercial wiring device mounting',
+      'Flush wall boxes for MCB / MCCB plates',
+      'OEM panel builder supply',
+    ],
+  },
   {
     id: 'jeb-400x300x200',
     name: 'JEB Series Junction Box 400×300×200',
@@ -141,6 +175,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     model3d: '/models/jeb-400x300x200.glb',
+    viewerStyle: 'enclosure',
     applications: [
       'Feeder and distribution junctions',
       'Outdoor cable terminations',
@@ -219,6 +254,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     model3d: '/models/cpb-control-panel-enclosure.glb',
+    viewerStyle: 'enclosure',
     applications: ['MCC panels', 'PLC / automation panels', 'Instrumentation panels'],
   },
   {

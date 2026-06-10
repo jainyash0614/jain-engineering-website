@@ -347,12 +347,13 @@ export function ProductDetail() {
                   width={selectedSize?.width ?? 300}
                   depth={selectedSize?.depth ?? 200}
                   unit={selectedSize?.unit ?? 'mm'}
-                  modelUrl={product?.model3d}
                   variant={
                     product.category === 'floor-distribution-system'
                       ? 'fds-floor-box'
                       : 'enclosure-box'
                   }
+                  metalBoxStyle={product.viewerStyle ?? 'enclosure'}
+                  wallThickness={product.thicknessOptions[0] ?? 1.6}
                 />
               </div>
 
@@ -375,6 +376,25 @@ export function ProductDetail() {
                           <div>
                             <div className="text-sm text-muted-foreground mb-1">Body depth (below floor)</div>
                             <div className="text-lg font-semibold">{selectedSize?.height ?? '-'} mm</div>
+                          </div>
+                        </>
+                      ) : product.viewerStyle === 'modular-mount' ? (
+                        <>
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">Internal width</div>
+                            <div className="text-lg font-semibold">{selectedSize?.width ?? '-'} mm</div>
+                          </div>
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">Internal height</div>
+                            <div className="text-lg font-semibold">{selectedSize?.height ?? '-'} mm</div>
+                          </div>
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">Depth</div>
+                            <div className="text-lg font-semibold">{selectedSize?.depth ?? '-'} mm</div>
+                          </div>
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">Sheet thickness</div>
+                            <div className="text-lg font-semibold">{product.thicknessOptions[0] ?? '-'} mm</div>
                           </div>
                         </>
                       ) : (
