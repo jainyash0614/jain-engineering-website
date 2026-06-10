@@ -249,14 +249,6 @@ export const PRODUCTS: Product[] = [
     },
     downloads: [
       {
-        id: 'datasheet',
-        type: 'datasheet',
-        label: 'FDS series overview',
-        format: 'PDF',
-        size: '1.8 MB',
-        fileUrl: '/downloads/fds/fds-series-overview.pdf',
-      },
-      {
         id: '2d-drawing-300',
         type: 'drawing',
         label: '2D drawing - 300×300 cutout',
