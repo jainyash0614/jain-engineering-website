@@ -101,35 +101,37 @@ export function Product3DViewerFrame({
               </div>
             )}
 
-            <Suspense
-              fallback={
-                <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-                  Loading 3D model…
-                </div>
-              }
-            >
-              {isFds ? (
-                <FDSFloorBox3D
-                  key={`fds-${viewerKey}-${width}-${depth}-${exploded}-${lighting}`}
-                  cutoutWidth={width}
-                  cutoutDepth={depth}
-                  bodyDepth={bodyDepth}
-                  exploded={exploded}
-                  lighting={lighting}
-                />
-              ) : (
-                <MetalBox3D
-                  key={`mb-${viewerKey}-${width}-${height}-${depth}-${metalBoxStyle}-${exploded}-${lighting}`}
-                  width={width}
-                  height={height}
-                  depth={depth}
-                  wallThickness={wallThickness}
-                  style={metalBoxStyle}
-                  exploded={exploded}
-                  lighting={lighting}
-                />
-              )}
-            </Suspense>
+            <div className="absolute inset-0">
+              <Suspense
+                fallback={
+                  <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+                    Loading 3D model…
+                  </div>
+                }
+              >
+                {isFds ? (
+                  <FDSFloorBox3D
+                    key={`fds-${viewerKey}-${width}-${depth}-${exploded}-${lighting}`}
+                    cutoutWidth={width}
+                    cutoutDepth={depth}
+                    bodyDepth={bodyDepth}
+                    exploded={exploded}
+                    lighting={lighting}
+                  />
+                ) : (
+                  <MetalBox3D
+                    key={`mb-${viewerKey}-${width}-${height}-${depth}-${metalBoxStyle}-${exploded}-${lighting}`}
+                    width={width}
+                    height={height}
+                    depth={depth}
+                    wallThickness={wallThickness}
+                    style={metalBoxStyle}
+                    exploded={exploded}
+                    lighting={lighting}
+                  />
+                )}
+              </Suspense>
+            </div>
           </div>
         </CardContent>
       </Card>

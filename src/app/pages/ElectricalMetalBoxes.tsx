@@ -4,7 +4,7 @@ import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { ProductCardImage } from '../components/ProductCardImage';
 import { getCategoryById, getProductsByCategory } from '../data/products';
 
 const THICKNESS_OPTIONS = [1.0, 1.2, 1.6] as const;
@@ -141,15 +141,13 @@ export function ElectricalMetalBoxes() {
                   <Badge variant="outline">Metal Box</Badge>
                 </div>
 
-                <div className="w-full h-40 bg-surface-2 rounded-lg border border-border mb-4 overflow-hidden">
-                  {product.heroImage ? (
-                    <ImageWithFallback
-                      src={product.heroImage}
-                      alt={product.name}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : null}
-                </div>
+                {product.heroImage ? (
+                  <ProductCardImage
+                    src={product.heroImage}
+                    alt={product.name}
+                    className="mb-4"
+                  />
+                ) : null}
 
                 <div className="mt-4 space-y-2 text-sm text-muted-foreground">
                   <div>

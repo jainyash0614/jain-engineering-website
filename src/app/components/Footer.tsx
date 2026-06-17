@@ -18,7 +18,7 @@ export function Footer() {
               <span className="font-semibold text-foreground">Jain Engineering Works</span>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
-              Incepted in 1990. Manufacturing & supplying metal boxes, metal plates, sheet metal components, shock loop assembly, port silencer & more. Faridabad.
+              Incepted in 2003. Manufacturing & supplying metal boxes, metal plates, sheet metal components, shock loop assembly, port silencer & more. Faridabad.
             </p>
             <div className="flex gap-4">
               <a href="mailto:jain_engineeringworks@yahoo.co.in" className="text-muted-foreground hover:text-primary" aria-label="Email">

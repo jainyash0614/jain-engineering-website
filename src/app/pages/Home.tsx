@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { RFQModal } from '../components/RFQModal';
+import { ProductCardImage } from '../components/ProductCardImage';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
 export function Home() {
@@ -181,13 +182,11 @@ export function Home() {
               <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-border">
                 <CardContent className="p-6 flex flex-col justify-between h-full">
                   <div>
-                    <div className="w-full h-40 bg-surface-2 rounded-lg mb-4 flex items-center justify-center border border-border">
-                      <ImageWithFallback
-                        src="/products/jeb/hero.jpg"
-                        alt="Electrical metal boxes"
-                        className="h-full w-full rounded-lg object-cover"
-                      />
-                    </div>
+                    <ProductCardImage
+                      src="/products/jeb/hero.jpg"
+                      alt="Electrical metal boxes"
+                      className="mb-4"
+                    />
                     <h3 className="mb-2">Electrical Metal Boxes</h3>
                     <p className="text-sm text-muted-foreground mb-3">
                       Wall/floor/pole-mount junction and control boxes with 1.0 / 1.2 / 1.6 mm sheet thickness options.
@@ -209,13 +208,11 @@ export function Home() {
               <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-border">
                 <CardContent className="p-6 flex flex-col justify-between h-full">
                   <div>
-                    <div className="w-full h-40 bg-surface-2 rounded-lg mb-4 flex items-center justify-center border border-border">
-                      <ImageWithFallback
-                        src="/products/fds/hero.jpg"
-                        alt="Floor distribution system"
-                        className="h-full w-full rounded-lg object-cover"
-                      />
-                    </div>
+                    <ProductCardImage
+                      src="/products/fds/hero.jpg"
+                      alt="Floor distribution system"
+                      className="mb-4"
+                    />
                     <h3 className="mb-2">Floor Distribution System</h3>
                     <p className="text-sm text-muted-foreground mb-3">
                       Floor boxes and distribution units for raised-floor environments in offices and control rooms.

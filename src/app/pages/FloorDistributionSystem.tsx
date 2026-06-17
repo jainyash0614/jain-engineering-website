@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { ProductCardImage } from '../components/ProductCardImage';
 import { getCategoryById, getProductsByCategory } from '../data/products';
 
 export function FloorDistributionSystem() {
@@ -56,15 +56,13 @@ export function FloorDistributionSystem() {
                     Floor Distribution
                   </Badge>
                   <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                  <div className="w-full h-36 bg-surface-2 rounded-lg border border-border mb-3 overflow-hidden">
-                    {product.heroImage ? (
-                      <ImageWithFallback
-                        src={product.heroImage}
-                        alt={product.name}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : null}
-                  </div>
+                  {product.heroImage ? (
+                    <ProductCardImage
+                      src={product.heroImage}
+                      alt={product.name}
+                      className="mb-3"
+                    />
+                  ) : null}
                   <p className="text-sm text-muted-foreground mb-4">
                     {product.shortDescription}
                   </p>

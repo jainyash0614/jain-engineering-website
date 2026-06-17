@@ -14,6 +14,7 @@ import {
 import { RFQModal } from '../components/RFQModal';
 import { getProductBySlug, getProductsByCategory, type Product } from '../data/products';
 import { Product3DViewerFrame } from '../components/Product3DViewerFrame';
+import { ProductCardImage } from '../components/ProductCardImage';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
 export function ProductDetail() {
@@ -190,10 +191,10 @@ export function ProductDetail() {
               {/* Product Image */}
               <div>
                 {selectedImage ? (
-                  <ImageWithFallback
+                  <ProductCardImage
                     src={selectedImage}
                     alt={`${product.name} product view`}
-                    className="aspect-square w-full rounded-lg border border-border object-cover"
+                    variant="hero"
                   />
                 ) : (
                   <div className="aspect-square bg-surface-2 rounded-lg border border-border flex items-center justify-center">
@@ -217,7 +218,7 @@ export function ProductDetail() {
                           <ImageWithFallback
                             src={imageUrl}
                             alt={`${product.name} thumbnail ${index + 1}`}
-                            className="h-full w-full object-cover"
+                            className="h-full w-full object-contain p-1"
                           />
                         </button>
                       ))
@@ -518,17 +519,18 @@ export function ProductDetail() {
                 <Link key={related.id} to={`/products/${related.slug}`}>
                   <Card className="hover:shadow-lg transition-shadow">
                     <CardContent className="p-6">
-                      <div className="aspect-square bg-surface-2 rounded-lg border border-border mb-4 flex items-center justify-center">
-                        {related.heroImage ? (
-                          <ImageWithFallback
-                            src={related.heroImage}
-                            alt={related.name}
-                            className="h-full w-full rounded-lg object-cover"
-                          />
-                        ) : (
+                      {related.heroImage ? (
+                        <ProductCardImage
+                          src={related.heroImage}
+                          alt={related.name}
+                          variant="thumb"
+                          className="mb-4"
+                        />
+                      ) : (
+                        <div className="aspect-square bg-surface-2 rounded-lg border border-border mb-4 flex items-center justify-center">
                           <Box className="h-16 w-16 text-muted-foreground" />
-                        )}
-                      </div>
+                        </div>
+                      )}
                       <h4 className="font-medium mb-1">{related.name}</h4>
                       <p className="text-xs text-muted-foreground line-clamp-2">
                         {related.shortDescription}
