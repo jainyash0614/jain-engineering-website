@@ -91,10 +91,11 @@ export function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-28 lg:py-32">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 text-foreground">
-              OEM-grade electrical metal boxes & floor distribution systems.
+              OEM-grade electrical metal boxes, floor distribution systems & junction boxes.
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Sheet metal fabrication, enclosures, and more. Multiple sizes • 1.0 / 1.2 / 1.6 mm • repeatable production • documented quality gates.
+              Sheet metal fabrication, enclosures, and more. Multiple sizes • 1.0 / 1.2 / 1.6 mm
+              • repeatable production • documented quality gates.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" onClick={() => setRfqModalOpen(true)} className="font-semibold">
@@ -171,13 +172,16 @@ export function Home() {
       <section className="py-16 md:py-24 bg-surface-2">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Two product families</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+              Three product families
+            </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              The Jain Engineering Works portfolio is focused on two core product lines for OEM procurement.
+              The Jain Engineering Works portfolio is focused on three core product lines for OEM
+              procurement.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Link to="/products/electrical-metal-boxes">
               <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-border">
                 <CardContent className="p-6 flex flex-col justify-between h-full">
@@ -225,6 +229,33 @@ export function Home() {
                   </div>
                   <div className="mt-4">
                     <Button size="sm">Explore floor distribution</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link to="/products/junction-boxes">
+              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-border">
+                <CardContent className="p-6 flex flex-col justify-between h-full">
+                  <div>
+                    <ProductCardImage
+                      src="/products/cjb/hero.jpg"
+                      alt="Junction boxes"
+                      className="mb-4"
+                    />
+                    <h3 className="mb-2">Junction Boxes</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      CJB junction box assemblies with reinforced base stack and knockout-ready
+                      raceway entries.
+                    </p>
+                    <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">
+                      <li>350×350 footprint with 60–75 mm depth range</li>
+                      <li>Layered cover + trap frame + pressure/base plate architecture</li>
+                      <li>4-side raceway knockouts and die-cast corner pillars</li>
+                    </ul>
+                  </div>
+                  <div className="mt-4">
+                    <Button size="sm">Explore junction boxes</Button>
                   </div>
                 </CardContent>
               </Card>

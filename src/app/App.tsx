@@ -7,6 +7,7 @@ import { ProductDetail } from './pages/ProductDetail';
 import { ProductsIndex } from './pages/ProductsIndex';
 import { ElectricalMetalBoxes } from './pages/ElectricalMetalBoxes';
 import { FloorDistributionSystem } from './pages/FloorDistributionSystem';
+import { JunctionBoxes } from './pages/JunctionBoxes';
 import { Principles } from './pages/Principles';
 import { Manufacturing } from './pages/Manufacturing';
 import { Quality } from './pages/Quality';
@@ -60,6 +61,7 @@ function AppShell() {
           <Route path="/products" element={<ProductsIndex />} />
           <Route path="/products/electrical-metal-boxes" element={<ElectricalMetalBoxes />} />
           <Route path="/products/floor-distribution-system" element={<FloorDistributionSystem />} />
+          <Route path="/products/junction-boxes" element={<JunctionBoxes />} />
           <Route path="/products/:slug" element={<ProductDetail />} />
           <Route path="/principles" element={<Principles />} />
           <Route path="/manufacturing" element={<Manufacturing />} />

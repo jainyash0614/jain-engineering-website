@@ -12,7 +12,7 @@ const MetalBox3D = lazy(() =>
   import('./MetalBox3D').then((module) => ({ default: module.MetalBox3D })),
 );
 
-export type Product3DVariant = 'enclosure-box' | 'fds-floor-box';
+export type Product3DVariant = 'enclosure-box' | 'fds-floor-box' | 'junction-box';
 
 interface Product3DViewerFrameProps {
   title?: string;
@@ -41,6 +41,8 @@ export function Product3DViewerFrame({
   const [viewerKey, setViewerKey] = useState(0);
 
   const isFds = variant === 'fds-floor-box';
+  const isJunction = variant === 'junction-box';
+  const isFloorStyle = isFds || isJunction;
   const isModular = metalBoxStyle === 'modular-mount';
   const bodyDepth = height > 0 ? height : 95;
 
@@ -59,10 +61,12 @@ export function Product3DViewerFrame({
               Drag to orbit • Scroll to zoom
             </div>
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 rounded-md border border-border bg-background/95 px-3 py-1 text-xs text-muted-foreground">
-              {isFds ? `FDS floor distribution box — ${title}` : `Metal box — ${title}`}
+              {isFloorStyle
+                ? `${isJunction ? 'Junction box' : 'FDS floor distribution box'} — ${title}`
+                : `Metal box — ${title}`}
             </div>
 
-            {showDimensions && isFds && (
+            {showDimensions && isFloorStyle && (
               <>
                 <div className="absolute top-8 right-4 z-20 bg-surface px-3 py-1 rounded shadow-md text-sm font-medium border border-border">
                   Cutout: {width} × {depth} {unit}
@@ -73,7 +77,7 @@ export function Product3DViewerFrame({
               </>
             )}
 
-            {showDimensions && !isFds && isModular && (
+            {showDimensions && !isFloorStyle && isModular && (
               <>
                 <div className="absolute top-8 right-4 z-20 bg-surface px-3 py-1 rounded shadow-md text-sm font-medium border border-border">
                   Internal: {width} × {height} × {depth} {unit}
@@ -84,7 +88,7 @@ export function Product3DViewerFrame({
               </>
             )}
 
-            {showDimensions && !isFds && !isModular && (
+            {showDimensions && !isFloorStyle && !isModular && (
               <>
                 <div className="absolute top-8 right-4 z-20 bg-surface px-3 py-1 rounded shadow-md text-sm font-medium border border-border">
                   H: {height} {unit}
@@ -109,7 +113,7 @@ export function Product3DViewerFrame({
                   </div>
                 }
               >
-                {isFds ? (
+                {isFloorStyle ? (
                   <FDSFloorBox3D
                     key={`fds-${viewerKey}-${width}-${depth}-${exploded}-${lighting}`}
                     cutoutWidth={width}

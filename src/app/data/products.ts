@@ -1,4 +1,7 @@
-export type ProductCategoryId = 'electrical-metal-boxes' | 'floor-distribution-system';
+export type ProductCategoryId =
+  | 'electrical-metal-boxes'
+  | 'floor-distribution-system'
+  | 'junction-boxes';
 
 export type MetalBoxViewerStyle = 'modular-mount' | 'enclosure';
 
@@ -49,7 +52,7 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
   {
     id: 'electrical-metal-boxes',
     name: 'Electrical Metal Boxes',
-    description: 'OEM-grade junction boxes and control enclosures in multiple sizes and thicknesses.',
+    description: 'OEM-grade modular metal boxes and control enclosures in multiple sizes and thicknesses.',
     heroIntro:
       'Standard and custom electrical metal boxes for OEM supply, panel builders, and EPC contractors.',
     bullets: [
@@ -68,6 +71,19 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
       'Flush and pop-up configurations',
       'Multiple outlet and data combinations',
       'Service-friendly modular construction',
+    ],
+  },
+  {
+    id: 'junction-boxes',
+    name: 'Junction Boxes',
+    description:
+      'Heavy-duty cable management and junction box assemblies for commercial and industrial floor applications.',
+    heroIntro:
+      'Junction box systems with reinforced base structure, knockout-ready raceway access, and service-friendly layered construction.',
+    bullets: [
+      'CJB 350×350 family with 60–75 mm depth range',
+      '1.6 mm GI structural parts with die-cast corner pillars',
+      'Exploded, serviceable stack with cover, trap frame, and base assembly',
     ],
   },
 ];
@@ -172,6 +188,38 @@ export const PRODUCTS: Product[] = [
       'Control rooms',
       'Data centers',
       'Training and conference facilities',
+    ],
+  },
+  {
+    id: 'cjb-350-junction-box',
+    name: 'CJB Junction Box 350×350×60–75',
+    slug: 'cjb-junction-box-350x350',
+    category: 'junction-boxes',
+    shortDescription:
+      '350×350 junction box assembly with layered cover stack, knockout-ready side plates, and adjustable 60–75 mm body depth.',
+    heroImage: '/products/cjb/hero.jpg',
+    galleryImages: ['/products/cjb/hero.jpg'],
+    thicknessOptions: [1.6],
+    sizeOptions: [{ label: '350×350 mm cutout', height: 75, width: 350, depth: 350, unit: 'mm' }],
+    keySpecs: {
+      'Drawing reference': 'ACJBRBDJML350 (development drawing)',
+      Material: 'GI 120 GSM + CRCA + die-cast corner pillars',
+      'Sheet thickness': '1.6 mm base/pressure/knockout + 1.6 mm cover/trap frame',
+      'Depth range': '60.0–75.0 mm',
+      'Nominal footprint': '350 × 350 mm',
+      'Cover stack': 'Throw-away lid + cover plate (floor lid) + trap frame',
+      'Structural stack': 'Flyover/cross bracket + pressure plates ×4 + base plate + corner pillars ×4',
+      'Cable ingress': 'Knockout plate raceway entries on 4 sides',
+      Finish: 'GI skin pass/spangle + DA grey powder coat (RAL 7031 on CRCA parts)',
+      Compliance: 'RoHS compliant materials/processes (per ES50040083 note)',
+    },
+    downloads: [],
+    model3d: null,
+    applications: [
+      'Commercial floor service junction points',
+      'Control-room and utility trench terminations',
+      'Plant-floor cable management access',
+      'High-traffic service areas requiring flush floor interfaces',
     ],
   },
 ];

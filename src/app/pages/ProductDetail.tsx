@@ -47,6 +47,12 @@ export function ProductDetail() {
   const drawingDownload = filteredDownloads.find((d) => d.type === 'drawing');
   const dxfDownload = filteredDownloads.find((d) => d.type === 'dxf');
   const stepDownload = filteredDownloads.find((d) => d.type === 'other' || d.type === 'step');
+  const categoryBadgeLabel =
+    product?.category === 'electrical-metal-boxes'
+      ? 'Metal Box'
+      : product?.category === 'floor-distribution-system'
+        ? 'Floor Distribution'
+        : 'Junction Box';
 
   const handleShareDrawing = async () => {
     const shareTarget = drawingDownload?.fileUrl ? `${window.location.origin}${drawingDownload.fileUrl}` : window.location.href;
@@ -98,7 +104,7 @@ export function ProductDetail() {
           <div>
             <div className="flex items-center space-x-3 mb-3">
               <h1>{product?.name ?? 'Product'}</h1>
-              {product && <Badge>{product.category === 'electrical-metal-boxes' ? 'Metal Box' : 'Floor Distribution'}</Badge>}
+              {product && <Badge>{categoryBadgeLabel}</Badge>}
             </div>
             <p className="text-sm text-muted-foreground mb-2">
               Jain Engineering Works • Faridabad • OEM supply
@@ -351,6 +357,8 @@ export function ProductDetail() {
                   variant={
                     product.category === 'floor-distribution-system'
                       ? 'fds-floor-box'
+                      : product.category === 'junction-boxes'
+                        ? 'junction-box'
                       : 'enclosure-box'
                   }
                   metalBoxStyle={product.viewerStyle ?? 'enclosure'}
@@ -364,7 +372,8 @@ export function ProductDetail() {
                   <CardContent className="p-6">
                     <h3 className="font-semibold mb-4">Dimensions</h3>
                     <div className="space-y-3">
-                      {product.category === 'floor-distribution-system' ? (
+                      {product.category === 'floor-distribution-system' ||
+                      product.category === 'junction-boxes' ? (
                         <>
                           <div>
                             <div className="text-sm text-muted-foreground mb-1">Cutout width</div>
@@ -378,6 +387,12 @@ export function ProductDetail() {
                             <div className="text-sm text-muted-foreground mb-1">Body depth (below floor)</div>
                             <div className="text-lg font-semibold">{selectedSize?.height ?? '-'} mm</div>
                           </div>
+                          {product.category === 'junction-boxes' ? (
+                            <div>
+                              <div className="text-sm text-muted-foreground mb-1">Adjustable depth range</div>
+                              <div className="text-lg font-semibold">60–75 mm</div>
+                            </div>
+                          ) : null}
                         </>
                       ) : product.viewerStyle === 'modular-mount' ? (
                         <>

@@ -7,9 +7,11 @@ import { getProductsByCategory, PRODUCT_CATEGORIES } from '../data/products';
 export function ProductsIndex() {
   const metalBoxCategory = PRODUCT_CATEGORIES.find((c) => c.id === 'electrical-metal-boxes');
   const fdsCategory = PRODUCT_CATEGORIES.find((c) => c.id === 'floor-distribution-system');
+  const junctionCategory = PRODUCT_CATEGORIES.find((c) => c.id === 'junction-boxes');
 
   const metalBoxCount = getProductsByCategory('electrical-metal-boxes').length;
   const fdsCount = getProductsByCategory('floor-distribution-system').length;
+  const junctionCount = getProductsByCategory('junction-boxes').length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -17,14 +19,15 @@ export function ProductsIndex() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
           <h1 className="mb-3">Products</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            OEM-grade electrical metal boxes and floor distribution systems from Jain Engineering
-            Works (Faridabad), designed for repeatable production and procurement confidence.
+            OEM-grade electrical metal boxes, floor distribution systems, and junction box families
+            from Jain Engineering Works (Faridabad), designed for repeatable production and
+            procurement confidence.
           </p>
         </div>
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {metalBoxCategory && (
             <Card className="border-border">
               <CardContent className="p-8 flex flex-col h-full justify-between">
@@ -77,6 +80,35 @@ export function ProductsIndex() {
                   </Link>
                   <Link to="/contact?productType=floor-distribution-system">
                     <Button variant="outline">Request RFQ for Floor System</Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {junctionCategory && (
+            <Card className="border-border">
+              <CardContent className="p-8 flex flex-col h-full justify-between">
+                <div className="space-y-4">
+                  <Badge variant="outline">Product Line 03</Badge>
+                  <h2 className="text-2xl font-semibold">{junctionCategory.name}</h2>
+                  <p className="text-muted-foreground">{junctionCategory.description}</p>
+                  <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                    {junctionCategory.bullets.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <p className="text-xs text-muted-foreground">
+                    Current configurations: <span className="font-medium">{junctionCount}</span>{' '}
+                    (extend with your full junction box matrix).
+                  </p>
+                </div>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Link to="/products/junction-boxes">
+                    <Button>Explore Junction Boxes</Button>
+                  </Link>
+                  <Link to="/contact?productType=junction-boxes">
+                    <Button variant="outline">Request RFQ for Junction Boxes</Button>
                   </Link>
                 </div>
               </CardContent>
