@@ -22,7 +22,7 @@ interface RFQModalProps {
 
 export function RFQModal({ open, onOpenChange, prefill }: RFQModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitState, setSubmitState] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitState, setSubmitState] = useState<'idle' | 'success' | 'mailto' | 'error'>('idle');
   const [formError, setFormError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>('');
   const [formData, setFormData] = useState({
@@ -123,6 +123,11 @@ export function RFQModal({ open, onOpenChange, prefill }: RFQModalProps) {
 
       if (!result.ok) {
         throw new Error('Submit failed');
+      }
+
+      if (result.method === 'mailto') {
+        setSubmitState('mailto');
+        return;
       }
 
       setSubmitState('success');
@@ -317,6 +322,12 @@ export function RFQModal({ open, onOpenChange, prefill }: RFQModalProps) {
           ) : null}
           {submitState === 'success' ? (
             <p className="text-sm text-success">RFQ submitted successfully. We will contact you within {RFQ_RESPONSE_HOURS} hours.</p>
+          ) : null}
+          {submitState === 'mailto' ? (
+            <p className="text-sm text-warning">
+              Your email app opened with the RFQ details. Please tap <strong>Send</strong> in your mail
+              app to deliver it to Jain Engineering.
+            </p>
           ) : null}
 
           <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-4">

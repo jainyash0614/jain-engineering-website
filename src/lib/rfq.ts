@@ -99,7 +99,9 @@ function openMailtoFallback(payload: RfqSubmitPayload) {
   window.location.href = `mailto:${JAIN_RFQ_EMAIL}?subject=${subject}&body=${body}`;
 }
 
-export async function submitRfq(payload: RfqSubmitPayload): Promise<{ ok: boolean; method: 'api' | 'web3forms' | 'mailto' }> {
+export async function submitRfq(
+  payload: RfqSubmitPayload,
+): Promise<{ ok: boolean; method: 'api' | 'web3forms' | 'mailto'; needsManualSend?: boolean }> {
   try {
     const response = await fetch('/api/send-rfq', {
       method: 'POST',
@@ -137,5 +139,5 @@ export async function submitRfq(payload: RfqSubmitPayload): Promise<{ ok: boolea
   }
 
   openMailtoFallback(payload);
-  return { ok: true, method: 'mailto' };
+  return { ok: true, method: 'mailto', needsManualSend: true };
 }

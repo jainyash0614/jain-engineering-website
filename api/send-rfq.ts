@@ -80,13 +80,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    const smtpPort = Number(process.env.SMTP_PORT || 465);
+    const smtpSecure = process.env.SMTP_SECURE
+      ? process.env.SMTP_SECURE === 'true'
+      : smtpPort === 465;
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST || 'smtp.mail.yahoo.com',
-      port: Number(process.env.SMTP_PORT || 587),
-      secure: false,
+      port: smtpPort,
+      secure: smtpSecure,
       auth: {
-        user: smtpUser,
-        pass: smtpPass,
+        user: smtpUser.trim(),
+        pass: smtpPass.replace(/\s/g, ''),
+      },
+      tls: {
+        minVersion: 'TLSv1.2',
       },
     });
 

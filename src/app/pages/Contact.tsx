@@ -13,7 +13,7 @@ import { submitRfq, RFQ_RESPONSE_HOURS, CATEGORY_LABELS } from '../../lib/rfq';
 export function Contact() {
   const [searchParams] = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitState, setSubmitState] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitState, setSubmitState] = useState<'idle' | 'success' | 'mailto' | 'error'>('idle');
   const [formError, setFormError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>('');
 
@@ -95,7 +95,7 @@ export function Contact() {
         throw new Error('Submit failed');
       }
 
-      setSubmitState('success');
+      setSubmitState(result.method === 'mailto' ? 'mailto' : 'success');
     } catch {
       setSubmitState('error');
       setFormError('Submission failed. Please try WhatsApp or email us directly.');
@@ -311,6 +311,13 @@ export function Contact() {
                   {submitState === 'success' ? (
                     <p className="text-sm text-success">
                       Thanks for your inquiry. Our team will respond within {RFQ_RESPONSE_HOURS} hours.
+                    </p>
+                  ) : null}
+                  {submitState === 'mailto' ? (
+                    <p className="text-sm text-warning">
+                      Your email app opened with the RFQ details. Please tap <strong>Send</strong> in your
+                      mail app to deliver it to Jain Engineering — the form alone does not email us
+                      automatically yet.
                     </p>
                   ) : null}
 
