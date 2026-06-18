@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { RFQModal } from '../components/RFQModal';
+import { RfqQuickActions } from '../components/RfqQuickActions';
 import { ProductCardImage } from '../components/ProductCardImage';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
@@ -107,6 +108,7 @@ export function Home() {
                 </Button>
               </Link>
             </div>
+            <RfqQuickActions className="mt-6 justify-center items-center" />
           </div>
         </div>
 
@@ -389,6 +391,7 @@ export function Home() {
               </Button>
             </Link>
           </div>
+          <RfqQuickActions className="mt-6 justify-center items-center [&_p]:text-primary-foreground/90 [&_span]:text-primary-foreground" />
         </div>
       </section>
 

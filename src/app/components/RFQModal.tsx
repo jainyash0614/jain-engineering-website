@@ -6,13 +6,21 @@ import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Upload } from 'lucide-react';
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { RfqQuickActions } from './RfqQuickActions';
+import {
+  buildRfqMessage,
+  submitRfq,
+  RFQ_RESPONSE_HOURS,
+  type RfqPrefill,
+} from '../../lib/rfq';
 
 interface RFQModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  prefill?: RfqPrefill;
 }
 
-export function RFQModal({ open, onOpenChange }: RFQModalProps) {
+export function RFQModal({ open, onOpenChange, prefill }: RFQModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitState, setSubmitState] = useState<'idle' | 'success' | 'error'>('idle');
   const [formError, setFormError] = useState<string | null>(null);
@@ -32,20 +40,43 @@ export function RFQModal({ open, onOpenChange }: RFQModalProps) {
     message: '',
   });
 
-  const inferredMessage = useMemo(() => {
+  const urlPrefill = useMemo<RfqPrefill>(() => {
     const search = new URLSearchParams(window.location.search);
-    const product = search.get('product');
-    const productType = search.get('productType');
-    const intent = search.get('intent');
-    const context = [product, productType].filter(Boolean).join(' | ');
-    if (intent === 'partner') return 'Interested in partnership discussion.';
-    return context ? `RFQ context: ${context}.` : '';
+    return {
+      product: search.get('product') ?? undefined,
+      productType: search.get('productType') ?? undefined,
+      categoryLabel: search.get('category') ?? undefined,
+      size: search.get('size') ?? undefined,
+      thickness: search.get('thickness') ?? undefined,
+    };
   }, [open]);
+
+  const mergedPrefill = useMemo<RfqPrefill>(
+    () => ({
+      product: prefill?.product ?? urlPrefill.product,
+      productType: prefill?.productType ?? urlPrefill.productType,
+      categoryLabel: prefill?.categoryLabel ?? urlPrefill.categoryLabel,
+      size: prefill?.size ?? urlPrefill.size,
+      thickness: prefill?.thickness ?? urlPrefill.thickness,
+    }),
+    [prefill, urlPrefill],
+  );
+
+  const contextMessage = useMemo(() => {
+    const search = new URLSearchParams(window.location.search);
+    const intent = search.get('intent');
+    if (intent === 'partner') return 'Interested in partnership discussion.';
+    return buildRfqMessage(mergedPrefill);
+  }, [mergedPrefill, open]);
 
   useEffect(() => {
     if (!open) return;
-    setFormData((current) => ({ ...current, message: current.message || inferredMessage }));
-  }, [open, inferredMessage]);
+    setFormData((current) => ({
+      ...current,
+      size: mergedPrefill.size || current.size,
+      message: current.message || contextMessage,
+    }));
+  }, [open, mergedPrefill.size, contextMessage]);
 
   const updateField = (field: keyof typeof formData, value: string) => {
     setFormData((current) => ({ ...current, [field]: value }));
@@ -83,7 +114,17 @@ export function RFQModal({ open, onOpenChange }: RFQModalProps) {
 
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 900));
+      const result = await submitRfq({
+        ...formData,
+        prefill: mergedPrefill,
+        attachmentName: fileName || undefined,
+        source: 'RFQ modal',
+      });
+
+      if (!result.ok) {
+        throw new Error('Submit failed');
+      }
+
       setSubmitState('success');
       window.setTimeout(() => {
         resetForm();
@@ -91,7 +132,7 @@ export function RFQModal({ open, onOpenChange }: RFQModalProps) {
       }, 1200);
     } catch {
       setSubmitState('error');
-      setFormError('Unable to submit now. Please try again.');
+      setFormError('Unable to submit now. Please try WhatsApp or email us directly.');
     } finally {
       setIsSubmitting(false);
     }
@@ -103,9 +144,26 @@ export function RFQModal({ open, onOpenChange }: RFQModalProps) {
         <DialogHeader>
           <DialogTitle>Request a Quote</DialogTitle>
           <DialogDescription>
-            Fill out the form below and our team will get back to you within 24 hours.
+            Fill out the form below and our team will get back to you within {RFQ_RESPONSE_HOURS} hours.
           </DialogDescription>
         </DialogHeader>
+
+        {mergedPrefill.product ? (
+          <div className="rounded-lg border border-border bg-surface-2 px-4 py-3 text-sm space-y-1">
+            <p className="font-medium text-foreground">{mergedPrefill.product}</p>
+            {mergedPrefill.categoryLabel ? (
+              <p className="text-muted-foreground">Category: {mergedPrefill.categoryLabel}</p>
+            ) : null}
+            {mergedPrefill.size ? (
+              <p className="text-muted-foreground">Size: {mergedPrefill.size}</p>
+            ) : null}
+            {mergedPrefill.thickness ? (
+              <p className="text-muted-foreground">Thickness: {mergedPrefill.thickness} mm</p>
+            ) : null}
+          </div>
+        ) : null}
+
+        <RfqQuickActions prefill={mergedPrefill} />
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -221,7 +279,10 @@ export function RFQModal({ open, onOpenChange }: RFQModalProps) {
 
           <div className="space-y-2">
             <Label htmlFor="file-upload">Upload Drawing / BOQ (Optional)</Label>
-            <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors cursor-pointer">
+            <label
+              htmlFor="file-upload"
+              className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors cursor-pointer block"
+            >
               <Upload className="mx-auto h-8 w-8 text-muted-foreground mb-2" />
               <p className="text-sm text-muted-foreground mb-1">
                 Click to upload or drag and drop
@@ -248,17 +309,17 @@ export function RFQModal({ open, onOpenChange }: RFQModalProps) {
                   setFileName(file.name);
                 }}
               />
-            </div>
+            </label>
           </div>
 
           {formError ? (
             <p className="text-sm text-destructive">{formError}</p>
           ) : null}
           {submitState === 'success' ? (
-            <p className="text-sm text-success">RFQ submitted successfully. We will contact you within 24 hours.</p>
+            <p className="text-sm text-success">RFQ submitted successfully. We will contact you within {RFQ_RESPONSE_HOURS} hours.</p>
           ) : null}
 
-          <div className="flex justify-end space-x-3 pt-4">
+          <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-4">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>

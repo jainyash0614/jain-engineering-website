@@ -1,21 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Card, CardContent } from '../components/ui/card';
-import { 
-  Download, 
-  Share2, 
+import {
+  Download,
+  Share2,
   Box,
   FileText,
-  Wrench
+  Wrench,
+  ImageOff,
+  Cuboid,
 } from 'lucide-react';
 import { RFQModal } from '../components/RFQModal';
+import { StickyRfqBar } from '../components/StickyRfqBar';
+import { RfqQuickActions } from '../components/RfqQuickActions';
+import { EmptyStateCard } from '../components/EmptyStateCard';
 import { getProductBySlug, getProductsByCategory, type Product } from '../data/products';
 import { Product3DViewerFrame } from '../components/Product3DViewerFrame';
 import { ProductCardImage } from '../components/ProductCardImage';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { CATEGORY_LABELS, type RfqPrefill } from '../../lib/rfq';
 
 export function ProductDetail() {
   const { slug } = useParams();
@@ -54,6 +60,34 @@ export function ProductDetail() {
         ? 'Floor Distribution'
         : 'Junction Box';
 
+  const thicknessLabel = product
+    ? product.thicknessOptions.map((t) => `${t.toFixed(1)} mm`).join(' / ')
+    : '';
+
+  const rfqPrefill = useMemo<RfqPrefill>(
+    () =>
+      product
+        ? {
+            product: product.name,
+            productType: categoryBadgeLabel,
+            categoryLabel: CATEGORY_LABELS[product.category],
+            size: selectedSizeLabel,
+            thickness: thicknessLabel,
+          }
+        : {},
+    [product, categoryBadgeLabel, selectedSizeLabel, thicknessLabel],
+  );
+
+  const hasGallery = galleryImages.length > 0;
+  const has3dView =
+    !!product &&
+    !!selectedSize &&
+    (product.category === 'electrical-metal-boxes' ||
+      product.category === 'floor-distribution-system' ||
+      product.category === 'junction-boxes');
+
+  const openRfq = () => setRfqModalOpen(true);
+
   const handleShareDrawing = async () => {
     const shareTarget = drawingDownload?.fileUrl ? `${window.location.origin}${drawingDownload.fileUrl}` : window.location.href;
     try {
@@ -82,7 +116,7 @@ export function ProductDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-28">
       {/* Breadcrumb */}
       <div className="bg-surface border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
@@ -113,25 +147,25 @@ export function ProductDetail() {
               <p className="text-lg text-foreground max-w-2xl">{product.shortDescription}</p>
             )}
           </div>
-          <div className="flex flex-col sm:flex-row lg:flex-col gap-3 mt-4 lg:mt-0">
-            <Button 
-              size="lg" 
-              onClick={() => setRfqModalOpen(true)}
-            >
-              Request Quote
-            </Button>
-            {datasheetDownload ? (
-              <a href={datasheetDownload.fileUrl} download className="w-full">
-                <Button size="lg" variant="outline" className="w-full">
-                  <Download className="h-4 w-4 mr-2" />
-                  Download Datasheet
-                </Button>
-              </a>
-            ) : null}
-            <Button size="lg" variant="outline" onClick={handleShareDrawing}>
-              <Share2 className="h-4 w-4 mr-2" />
-              {shareCopied ? 'Copied' : 'Share Drawing'}
-            </Button>
+          <div className="flex flex-col gap-4 mt-4 lg:mt-0 lg:min-w-[280px]">
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3">
+              <Button size="lg" onClick={openRfq}>
+                Request Quote
+              </Button>
+              {datasheetDownload ? (
+                <a href={datasheetDownload.fileUrl} download className="w-full">
+                  <Button size="lg" variant="outline" className="w-full">
+                    <Download className="h-4 w-4 mr-2" />
+                    Download Datasheet
+                  </Button>
+                </a>
+              ) : null}
+              <Button size="lg" variant="outline" onClick={handleShareDrawing}>
+                <Share2 className="h-4 w-4 mr-2" />
+                {shareCopied ? 'Copied' : 'Share Drawing'}
+              </Button>
+            </div>
+            <RfqQuickActions prefill={rfqPrefill} />
           </div>
         </div>
 
@@ -171,11 +205,20 @@ export function ProductDetail() {
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="p-4 space-y-1 text-sm text-muted-foreground">
-                <p>
-                  Thickness, size and quantity selections from your RFQ will be mapped here. This
-                  block can be extended into a live RFQ summary when wiring the backend.
+              <CardContent className="p-4 space-y-2 text-sm">
+                <h3 className="text-sm font-medium">RFQ summary</h3>
+                <p className="text-muted-foreground">
+                  <span className="text-foreground font-medium">Product:</span> {product.name}
                 </p>
+                <p className="text-muted-foreground">
+                  <span className="text-foreground font-medium">Size:</span> {selectedSizeLabel || '—'}
+                </p>
+                <p className="text-muted-foreground">
+                  <span className="text-foreground font-medium">Thickness:</span> {thicknessLabel || '—'}
+                </p>
+                <Button size="sm" className="mt-2 w-full" onClick={openRfq}>
+                  Request RFQ with these selections
+                </Button>
               </CardContent>
             </Card>
           </div>
@@ -196,19 +239,23 @@ export function ProductDetail() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Product Image */}
               <div>
-                {selectedImage ? (
+                {hasGallery && selectedImage ? (
                   <ProductCardImage
                     src={selectedImage}
                     alt={`${product.name} product view`}
                     variant="hero"
                   />
                 ) : (
-                  <div className="aspect-square bg-surface-2 rounded-lg border border-border flex items-center justify-center">
-                    <Box className="h-32 w-32 text-muted-foreground" />
-                  </div>
+                  <EmptyStateCard
+                    icon={<ImageOff className="h-12 w-12" />}
+                    title="Product images available on request"
+                    description="Share your application details and we can provide photos, drawings, and sample references for this configuration."
+                    actionLabel="Request images via RFQ"
+                    onAction={openRfq}
+                  />
                 )}
                 <div className="grid grid-cols-4 gap-2 mt-4">
-                  {galleryImages.length > 0
+                  {hasGallery
                     ? galleryImages.slice(0, 4).map((imageUrl, index) => (
                         <button
                           type="button"
@@ -346,24 +393,33 @@ export function ProductDetail() {
           {/* 3D View Tab */}
           <TabsContent value="3d">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-              {/* 3D Viewer */}
               <div className="lg:col-span-3">
-                <Product3DViewerFrame
-                  title={product?.name}
-                  height={selectedSize?.height ?? 400}
-                  width={selectedSize?.width ?? 300}
-                  depth={selectedSize?.depth ?? 200}
-                  unit={selectedSize?.unit ?? 'mm'}
-                  variant={
-                    product.category === 'floor-distribution-system'
-                      ? 'fds-floor-box'
-                      : product.category === 'junction-boxes'
-                        ? 'junction-box'
-                      : 'enclosure-box'
-                  }
-                  metalBoxStyle={product.viewerStyle ?? 'enclosure'}
-                  wallThickness={product.thicknessOptions[0] ?? 1.6}
-                />
+                {has3dView ? (
+                  <Product3DViewerFrame
+                    title={product?.name}
+                    height={selectedSize?.height ?? 400}
+                    width={selectedSize?.width ?? 300}
+                    depth={selectedSize?.depth ?? 200}
+                    unit={selectedSize?.unit ?? 'mm'}
+                    variant={
+                      product.category === 'floor-distribution-system'
+                        ? 'fds-floor-box'
+                        : product.category === 'junction-boxes'
+                          ? 'junction-box'
+                          : 'enclosure-box'
+                    }
+                    metalBoxStyle={product.viewerStyle ?? 'enclosure'}
+                    wallThickness={product.thicknessOptions[0] ?? 1.6}
+                  />
+                ) : (
+                  <EmptyStateCard
+                    icon={<Cuboid className="h-12 w-12" />}
+                    title="3D preview available on request"
+                    description="We can share STEP files, interactive previews, or dimensioned drawings for your selected size and thickness."
+                    actionLabel="Request 3D files via RFQ"
+                    onAction={openRfq}
+                  />
+                )}
               </div>
 
               {/* Dimension Details */}
@@ -469,32 +525,44 @@ export function ProductDetail() {
           {/* Downloads Tab */}
           <TabsContent value="downloads">
             <div className="max-w-4xl">
-              <h2 className="mb-6">Downloads & Resources</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredDownloads.map((file) => (
-                  <a key={file.id} href={file.fileUrl} download>
-                    <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                      <CardContent className="p-4 flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="h-10 w-10 bg-primary/10 rounded flex items-center justify-center">
-                            <FileText className="h-5 w-5 text-primary" />
-                          </div>
-                          <div>
-                            <div className="font-medium text-sm">{file.label}</div>
-                            <div className="text-xs text-muted-foreground">
-                              {file.format}
-                              {file.size ? ` • ${file.size}` : ''}
+              <h2 className="mb-6">
+                {filteredDownloads.length > 0 ? 'Downloads & Resources' : 'Available on request'}
+              </h2>
+              {filteredDownloads.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {filteredDownloads.map((file) => (
+                    <a key={file.id} href={file.fileUrl} download>
+                      <Card className="hover:shadow-md transition-shadow cursor-pointer">
+                        <CardContent className="p-4 flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <div className="h-10 w-10 bg-primary/10 rounded flex items-center justify-center">
+                              <FileText className="h-5 w-5 text-primary" />
+                            </div>
+                            <div>
+                              <div className="font-medium text-sm">{file.label}</div>
+                              <div className="text-xs text-muted-foreground">
+                                {file.format}
+                                {file.size ? ` • ${file.size}` : ''}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <Button size="sm" variant="ghost">
-                          <Download className="h-4 w-4" />
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </a>
-                ))}
-              </div>
+                          <Button size="sm" variant="ghost">
+                            <Download className="h-4 w-4" />
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <EmptyStateCard
+                  icon={<FileText className="h-12 w-12" />}
+                  title="Drawings and datasheets available on request"
+                  description={`We can provide PDF drawings, DXF templates, and datasheets for ${product.name} in your selected size (${selectedSizeLabel || 'standard'}).`}
+                  actionLabel="Request files via RFQ"
+                  onAction={openRfq}
+                />
+              )}
             </div>
           </TabsContent>
 
@@ -558,7 +626,8 @@ export function ProductDetail() {
         </div>
       </div>
 
-      <RFQModal open={rfqModalOpen} onOpenChange={setRfqModalOpen} />
+      <StickyRfqBar onRequestQuote={openRfq} prefill={rfqPrefill} />
+      <RFQModal open={rfqModalOpen} onOpenChange={setRfqModalOpen} prefill={rfqPrefill} />
     </div>
   );
 }

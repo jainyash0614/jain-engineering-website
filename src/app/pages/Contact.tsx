@@ -7,6 +7,8 @@ import { Textarea } from '../components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Card, CardContent } from '../components/ui/card';
 import { Mail, Phone, MapPin, Calendar, MessageSquare, Upload } from 'lucide-react';
+import { RfqQuickActions } from '../components/RfqQuickActions';
+import { submitRfq, RFQ_RESPONSE_HOURS, CATEGORY_LABELS } from '../../lib/rfq';
 
 export function Contact() {
   const [searchParams] = useSearchParams();
@@ -15,12 +17,21 @@ export function Contact() {
   const [formError, setFormError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>('');
 
+  const urlPrefill = useMemo(() => {
+    const categoryId = searchParams.get('category');
+    return {
+      product: searchParams.get('product') ?? undefined,
+      productType: searchParams.get('productType') ?? undefined,
+      categoryLabel: categoryId ? CATEGORY_LABELS[categoryId] ?? categoryId : undefined,
+      size: searchParams.get('size') ?? undefined,
+      thickness: searchParams.get('thickness') ?? undefined,
+    };
+  }, [searchParams]);
+
   const inferredMessage = useMemo(() => {
     const intent = searchParams.get('intent');
     const topic = searchParams.get('topic');
-    const product = searchParams.get('product');
-    const productType = searchParams.get('productType');
-    const contextParts = [topic, product, productType].filter(Boolean).join(' | ');
+    const contextParts = [topic, urlPrefill.product, urlPrefill.productType].filter(Boolean).join(' | ');
 
     if (intent === 'factory-visit') {
       return 'We would like to schedule a factory visit. Preferred date/time: ';
@@ -32,7 +43,7 @@ export function Contact() {
       return 'Interested in becoming a supply/distribution partner.';
     }
     return contextParts ? `Inquiry context: ${contextParts}.` : '';
-  }, [searchParams]);
+  }, [searchParams, urlPrefill]);
 
   const [formData, setFormData] = useState({
     company: '',
@@ -52,9 +63,10 @@ export function Contact() {
   useEffect(() => {
     setFormData((current) => ({
       ...current,
+      size: urlPrefill.size || current.size,
       message: current.message || inferredMessage,
     }));
-  }, [inferredMessage]);
+  }, [inferredMessage, urlPrefill.size]);
 
   const updateField = (field: keyof typeof formData, value: string) => {
     setFormData((current) => ({ ...current, [field]: value }));
@@ -72,11 +84,21 @@ export function Contact() {
 
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 900));
+      const result = await submitRfq({
+        ...formData,
+        prefill: urlPrefill,
+        attachmentName: fileName || undefined,
+        source: 'Contact page',
+      });
+
+      if (!result.ok) {
+        throw new Error('Submit failed');
+      }
+
       setSubmitState('success');
     } catch {
       setSubmitState('error');
-      setFormError('Submission failed. Please try again.');
+      setFormError('Submission failed. Please try WhatsApp or email us directly.');
     } finally {
       setIsSubmitting(false);
     }
@@ -126,10 +148,14 @@ export function Contact() {
           <div className="lg:col-span-2">
             <Card>
               <CardContent className="p-8">
-                <div className="flex items-center space-x-3 mb-6">
+                <div className="flex items-center space-x-3 mb-4">
                   <MessageSquare className="h-6 w-6 text-primary" />
                   <h2 className="text-2xl font-semibold">Request for Quotation</h2>
                 </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  We typically respond within {RFQ_RESPONSE_HOURS} hours on business days.
+                </p>
+                <RfqQuickActions prefill={urlPrefill} className="mb-6" />
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -283,7 +309,9 @@ export function Contact() {
                     <p className="text-sm text-destructive">{formError}</p>
                   ) : null}
                   {submitState === 'success' ? (
-                    <p className="text-sm text-success">Thanks for your inquiry. Our team will respond within 24 hours.</p>
+                    <p className="text-sm text-success">
+                      Thanks for your inquiry. Our team will respond within {RFQ_RESPONSE_HOURS} hours.
+                    </p>
                   ) : null}
 
                   <div className="flex justify-end pt-4">
