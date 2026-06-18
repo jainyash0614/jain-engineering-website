@@ -374,11 +374,19 @@ export function Contact() {
                     </p>
                   </div>
                 </div>
-                
-                {/* Map Placeholder */}
-                <div className="w-full h-40 bg-surface-2 rounded-lg border border-border flex items-center justify-center mt-4">
-                  <MapPin className="h-8 w-8 text-muted-foreground" />
-                </div>
+
+                <a
+                  href="https://maps.app.goo.gl/hsdST1BVCwGwiEaN9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full h-40 bg-surface-2 rounded-lg border border-border mt-4 overflow-hidden hover:border-primary/50 transition-colors group"
+                  aria-label="Open factory location in Google Maps"
+                >
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+                    <MapPin className="h-8 w-8 text-primary group-hover:scale-110 transition-transform" />
+                    <span className="text-sm font-medium text-foreground">View on Google Maps</span>
+                  </div>
+                </a>
               </CardContent>
             </Card>
 
@@ -387,17 +395,9 @@ export function Contact() {
               <CardContent className="p-6">
                 <h4 className="font-medium mb-4">Business Hours</h4>
                 <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Monday - Friday</span>
-                    <span className="font-medium">9:00 AM - 6:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Saturday</span>
-                    <span className="font-medium">9:00 AM - 2:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Sunday</span>
-                    <span className="font-medium">Closed</span>
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground">Monday – Sunday</span>
+                    <span className="font-medium text-right">9:00 AM – 7:30 PM</span>
                   </div>
                 </div>
                 <p className="text-xs text-muted-foreground mt-4">

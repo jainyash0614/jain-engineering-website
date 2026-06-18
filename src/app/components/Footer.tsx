@@ -66,7 +66,14 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
                 <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                <span>Faridabad, Haryana<br />India</span>
+                <a
+                  href="https://maps.app.goo.gl/hsdST1BVCwGwiEaN9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground"
+                >
+                  Faridabad, Haryana<br />India
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-5 w-5 flex-shrink-0" />
