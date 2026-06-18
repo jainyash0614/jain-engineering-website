@@ -35,6 +35,7 @@ export const CATEGORY_LABELS: Record<string, string> = {
   'electrical-metal-boxes': 'Electrical Metal Boxes',
   'floor-distribution-system': 'Floor Distribution System',
   'junction-boxes': 'Junction Boxes',
+  'folded-metal-boxes': 'Folded Metal Boxes',
 };
 
 export function buildWhatsappUrl(prefill?: RfqPrefill) {

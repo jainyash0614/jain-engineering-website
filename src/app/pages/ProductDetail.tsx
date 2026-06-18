@@ -58,7 +58,9 @@ export function ProductDetail() {
       ? 'Metal Box'
       : product?.category === 'floor-distribution-system'
         ? 'Floor Distribution'
-        : 'Junction Box';
+        : product?.category === 'folded-metal-boxes'
+          ? 'Folded Metal Box'
+          : 'Junction Box';
 
   const thicknessLabel = product
     ? product.thicknessOptions.map((t) => `${t.toFixed(1)} mm`).join(' / ')
@@ -84,7 +86,8 @@ export function ProductDetail() {
     !!selectedSize &&
     (product.category === 'electrical-metal-boxes' ||
       product.category === 'floor-distribution-system' ||
-      product.category === 'junction-boxes');
+      product.category === 'junction-boxes' ||
+      product.category === 'folded-metal-boxes');
 
   const openRfq = () => setRfqModalOpen(true);
 

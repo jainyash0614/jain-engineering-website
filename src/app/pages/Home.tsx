@@ -92,7 +92,7 @@ export function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-28 lg:py-32">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 text-foreground">
-              OEM-grade electrical metal boxes, floor distribution systems & junction boxes.
+              OEM-grade electrical metal boxes, floor distribution systems, junction boxes, and folded metal boxes.
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
               Sheet metal fabrication, enclosures, and more. Multiple sizes • 1.0 / 1.2 / 1.6 mm
@@ -175,15 +175,15 @@ export function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              Three product families
+              Four product families
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              The Jain Engineering Works portfolio is focused on three core product lines for OEM
+              The Jain Engineering Works portfolio spans four core product lines for OEM
               procurement.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Link to="/products/electrical-metal-boxes">
               <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-border">
                 <CardContent className="p-6 flex flex-col justify-between h-full">
@@ -258,6 +258,33 @@ export function Home() {
                   </div>
                   <div className="mt-4">
                     <Button size="sm">Explore junction boxes</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link to="/products/folded-metal-boxes">
+              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-border">
+                <CardContent className="p-6 flex flex-col justify-between h-full">
+                  <div>
+                    <ProductCardImage
+                      src="/products/fmb/hero.jpg"
+                      alt="Folded metal boxes"
+                      className="mb-4"
+                    />
+                    <h3 className="mb-2">Folded Metal Boxes</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Folded galvanized back boxes for modular wiring accessories with
+                      knockout-ready faces and earth terminals.
+                    </p>
+                    <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">
+                      <li>8MV 8-module vertical (130×130 mm)</li>
+                      <li>1.6 mm pre-galvanized folded construction</li>
+                      <li>BS 4662 style modular back box geometry</li>
+                    </ul>
+                  </div>
+                  <div className="mt-4">
+                    <Button size="sm">Explore folded metal boxes</Button>
                   </div>
                 </CardContent>
               </Card>

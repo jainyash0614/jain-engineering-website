@@ -50,7 +50,7 @@ export function About() {
           <h2 className="text-2xl font-semibold mb-6">Our Story</h2>
           <div className="prose prose-invert max-w-none space-y-4 text-foreground">
             <p className="text-muted-foreground leading-relaxed">
-              Founded in 2003, Jain Engineering Works is a Faridabad-based manufacturer of precision sheet-metal components for industrial and electrical applications. We specialize in OEM-grade electrical metal boxes, floor distribution systems, and junction box assemblies, along with a wide range of custom sheet-metal fabrication.
+              Founded in 2003, Jain Engineering Works is a Faridabad-based manufacturer of precision sheet-metal components for industrial and electrical applications. We specialize in OEM-grade electrical metal boxes, floor distribution systems, junction box assemblies, and folded metal back boxes, along with a wide range of custom sheet-metal fabrication.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Our operations are led by Mr. Sudhir Jain, whose hands-on manufacturing experience and process-driven approach ensure consistent quality, reliable lead times, and repeatable production.

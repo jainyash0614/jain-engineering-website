@@ -1,7 +1,8 @@
 export type ProductCategoryId =
   | 'electrical-metal-boxes'
   | 'floor-distribution-system'
-  | 'junction-boxes';
+  | 'junction-boxes'
+  | 'folded-metal-boxes';
 
 export type MetalBoxViewerStyle = 'modular-mount' | 'enclosure';
 
@@ -84,6 +85,19 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
       'CJB 350×350 family with 60–75 mm depth range',
       '1.6 mm GI structural parts with die-cast corner pillars',
       'Exploded, serviceable stack with cover, trap frame, and base assembly',
+    ],
+  },
+  {
+    id: 'folded-metal-boxes',
+    name: 'Folded Metal Boxes',
+    description:
+      'Folded galvanized back boxes for modular wiring accessories with knockout-ready faces and earth terminals.',
+    heroIntro:
+      'Single-sheet folded metal back boxes for modular switch, socket, and MCB mounting — engineered for repeatable OEM production.',
+    bullets: [
+      '8MV 8-module vertical family (130×130 mm footprint)',
+      '1.6 mm pre-galvanized steel with spangle finish',
+      'Knockout-ready base and side faces with earth terminal',
     ],
   },
 ];
@@ -220,6 +234,49 @@ export const PRODUCTS: Product[] = [
       'Control-room and utility trench terminations',
       'Plant-floor cable management access',
       'High-traffic service areas requiring flush floor interfaces',
+    ],
+  },
+  {
+    id: '8mv-folded-metal-box',
+    name: '8 Module Vertical Folded Metal Box (8MV)',
+    slug: '8mv-folded-metal-box-130x130',
+    category: 'folded-metal-boxes',
+    shortDescription:
+      '1.6 mm pre-galvanized folded back box for 8-module vertical wiring devices — 130×130×60 mm internal depth.',
+    heroImage: '/products/fmb/hero.jpg',
+    galleryImages: ['/products/fmb/hero.jpg'],
+    thicknessOptions: [1.6],
+    sizeOptions: [
+      { label: '130×130×60 mm (internal)', height: 130, width: 130, depth: 60, unit: 'mm' },
+    ],
+    keySpecs: {
+      'Drawing reference': '8MV (folded metal box)',
+      Material: 'Pre-galvanized steel, spangle finish',
+      'Sheet thickness': '1.6 mm',
+      'Internal size': '130 × 130 × 60 mm',
+      Construction: 'Single-sheet folded box with crimped corners',
+      Knockouts: 'Circular knockouts on base (diamond pattern) and side faces',
+      'Earth terminal': 'Brass earth screw with embossed earth symbol',
+      Mounting: 'Internal faceplate lugs + base oval mounting slots',
+      Compliance: 'BS 4662 style modular back box geometry',
+    },
+    downloads: [
+      {
+        id: '8mv-drawing',
+        type: 'drawing',
+        label: '8MV folded metal box drawing',
+        format: 'PDF',
+        size: '318 KB',
+        fileUrl: '/downloads/fmb/8mv-drawing.pdf',
+      },
+    ],
+    model3d: null,
+    viewerStyle: 'modular-mount',
+    applications: [
+      'Modular switch and socket back boxes',
+      'MCB / MCCB faceplate mounting',
+      'Commercial partition electrical fit-outs',
+      'OEM volume supply for wiring accessory brands',
     ],
   },
 ];
