@@ -98,11 +98,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
     });
 
+    const isPartner = body.source?.toLowerCase().includes('partner');
+
     await transporter.sendMail({
       from: `"Jain Engineering RFQ" <${smtpUser}>`,
       to: toEmail,
       replyTo: body.email,
-      subject: `Website RFQ — ${body.company}${body.prefill?.product ? ` (${body.prefill.product})` : ''}`,
+      subject: isPartner
+        ? `Partner application — ${body.company}`
+        : `Website RFQ — ${body.company}${body.prefill?.product ? ` (${body.prefill.product})` : ''}`,
       text: formatHtml(body).replace(/<[^>]+>/g, ' '),
       html: formatHtml(body),
     });

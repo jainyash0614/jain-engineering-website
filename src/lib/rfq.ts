@@ -67,9 +67,10 @@ export function buildRfqMessage(prefill?: RfqPrefill) {
 function formatEmailBody(payload: RfqSubmitPayload) {
   const { prefill, source, attachmentName, ...form } = payload;
   const context = buildRfqMessage(prefill);
+  const isPartner = source?.toLowerCase().includes('partner');
 
   return [
-    `New RFQ submission${source ? ` (${source})` : ''}`,
+    `New ${isPartner ? 'partnership application' : 'RFQ submission'}${source ? ` (${source})` : ''}`,
     '',
     context || null,
     `Company: ${form.company}`,
@@ -93,8 +94,11 @@ function formatEmailBody(payload: RfqSubmitPayload) {
 }
 
 function openMailtoFallback(payload: RfqSubmitPayload) {
+  const isPartner = payload.source?.toLowerCase().includes('partner');
   const subject = encodeURIComponent(
-    `RFQ: ${payload.company}${payload.prefill?.product ? ` — ${payload.prefill.product}` : ''}`,
+    isPartner
+      ? `Partner application: ${payload.company}`
+      : `RFQ: ${payload.company}${payload.prefill?.product ? ` — ${payload.prefill.product}` : ''}`,
   );
   const body = encodeURIComponent(formatEmailBody(payload));
   window.location.href = `mailto:${JAIN_RFQ_EMAIL}?subject=${subject}&body=${body}`;
@@ -124,7 +128,9 @@ export async function submitRfq(
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
         access_key: accessKey,
-        subject: `Website RFQ — ${payload.company}`,
+        subject: payload.source?.toLowerCase().includes('partner')
+          ? `Partner application — ${payload.company}`
+          : `Website RFQ — ${payload.company}`,
         from_name: payload.contact,
         email: payload.email,
         message: formatEmailBody(payload),
